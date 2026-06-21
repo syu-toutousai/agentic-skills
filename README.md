@@ -69,5 +69,15 @@ result=$(python3 ~/.gemini/skills/jit-media-gateway/scripts/cli.py search movie 
 python3 ~/.gemini/skills/jit-media-gateway/scripts/cli.py embed movie 27205
 ```
 
-## ⚠️ Security Disclaimer
+## ⚠️ Disclaimers & Legal Notice
+
+**1. Security Disclaimer**
 Please ensure you **NEVER** commit your real `.env` file or hardcode sensitive API keys (like `HF_TOKEN`, `TMDB_API_KEY`) into the repository. Always use the `.env.example` file as a template and ensure `.env` remains ignored by `.gitignore` to prevent credential leakage. This repository has been professionally audited and any historical commits have been cleaned to ensure absolute security.
+
+**2. Usage & Copyright Disclaimer**
+This repository provides pure, agnostic code and agentic skills for educational and experimental purposes only. The authors and maintainers are **NOT** responsible for any actions taken by users or agents utilizing this code. 
+- **Copyright Infringement**: Users are solely responsible for ensuring that their use of media routing, scraping, downloading, or playback tools complies with local copyright laws and the terms of service of third-party platforms.
+- **No Liability**: We provide no warranties, either express or implied. By using this software, you agree that the authors shall not be held liable for any damages, legal disputes, or copyright infringements arising from the use or misuse of this code.
+
+## 📄 License
+This project is licensed under the highly permissive **MIT License**. You are free to use, modify, distribute, and even commercialize the code. See the `LICENSE` file for details.
