@@ -1,0 +1,110 @@
+[
+    {
+        "name": "CGNTV Japan",
+        "url": "https://d2p4mrcwl6ly4.cloudfront.net/out/v1/8d50f69fdbbf411a8d302743e4263716/CGNWebLiveJP.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "DellaTV",
+        "url": "https://live20.bozztv.com/giatvplayout7/giatv-211474/playlist.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "NHK World-Japan",
+        "url": "https://masterpl.hls.nhkworld.jp/hls/w/live/smarttv.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "NHK World-Japan HD",
+        "url": "https://nhk.lls.pbs.org/index.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "Shop Channel",
+        "url": "https://stream3.shopch.jp/HLS/master.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "Weathernews",
+        "url": "https://rch01e-alive-hls.akamaized.net/38fb45b25cdb05a1/out/v1/4e907bfabc684a1dae10df8431a84d21/index.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "ANN News",
+        "url": "https://www.youtube.com/@ANNnewsCH/live",
+        "type": "youtube",
+        "status": "dead"
+    },
+    {
+        "name": "TBS NEWS DIG",
+        "url": "https://www.youtube.com/@tbsnewsdig/live",
+        "type": "youtube",
+        "status": "dead"
+    },
+    {
+        "name": "NTV NEWS24",
+        "url": "https://www.youtube.com/@ntv_news/live",
+        "type": "youtube",
+        "status": "dead"
+    },
+    {
+        "name": "FNN Prime Online",
+        "url": "https://www.youtube.com/@FNNnewsCH/live",
+        "type": "youtube",
+        "status": "dead"
+    },
+    {
+        "name": "WeatherNews",
+        "url": "https://www.youtube.com/@weathernews/live",
+        "type": "youtube",
+        "status": "dead"
+    },
+    {
+        "name": "GSTV (720p)",
+        "url": "https://japaneast.av.mk.io/mediakindcdn-mediakind/ca01a143-f823-4432-b670-c22ff9643ce4/index.qfm/manifest(format=m3u8-cmaf)",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "JOAX-DTV",
+        "url": "https://ntv5.mov3.co/hls/ntv.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "JOCX-DTV",
+        "url": "https://fujitv4.mov3.co/hls/fujitv.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "JOEX-DTV (540p)",
+        "url": "https://tvasahi.mov3.co/hls/tvasahi.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "JORX-DTV",
+        "url": "https://tbs5.mov3.co/hls/tbs.m3u8",
+        "type": "m3u8",
+        "status": "dead"
+    },
+    {
+        "name": "MNB World (1080p)",
+        "url": "https://cdn4.skygo.mn/live/disk1/MNB_World/DASH-FTA/MNB_World.mpd",
+        "type": "m3u8",
+        "status": "alive"
+    },
+    {
+        "name": "QVC (1080p)",
+        "url": "https://d1flvb4iqlercm.cloudfront.net/live/live_1080p_2nd.m3u8",
+        "type": "m3u8",
+        "status": "alive"
+    }
+]
