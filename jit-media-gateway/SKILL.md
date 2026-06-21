@@ -59,6 +59,10 @@ During the migration of this project to a native Agentic OS skill, we encountere
    - *Problem*: Users sometimes mask their true intent with a simpler request. For example, a user might ask to "Listen to a TV station" when their true intent is "I want the TV station's audio playing in the background, but I also want to occasionally glance at the visual broadcast."
    - *Fix (Architectural Constraint)*: Sometimes, strict literal alignment with a user's prompt is a disservice. You must be willing to perform a **Graceful Upgrade (Intent Overkill)**. If a user asks to "listen" to a highly visual medium (like a TV station), do not arbitrarily strip the video stream or downgrade to a pure audio player. Instead, launch the full audiovisual stream (e.g., `mpv` with video enabled)—delivering an overkill that perfectly satisfies both their stated "listening" intent and their unstated "glancing" desire.
 
+5. **Semantic Pre-Processing Before CLI Invocation (Agentic Translation)**:
+   - *Problem*: Users frequently use encyclopedic metonymy, idioms, or slang (e.g., asking for the "radio version of NHK E"). Rigid remote databases (like `radio-browser.info`) only understand canonical strings and will fail to find a match. Hardcoding dictionaries in the Python code is an anti-pattern.
+   - *Fix (Architectural Constraint)*: As an Agent, you possess vast encyclopedic world knowledge; legacy APIs do not. **Do not act as a dumb pass-through router.** Before you invoke `cli.py search <media_type> "<query>"`, you MUST perform semantic translation on the query. If the user asks for "NHK E Radio", you must deduce that its official name is "NHK Radio 2" and execute `cli.py search radio "NHK Radio 2"`. Translate human intent into API-friendly canonical names *before* hitting the infrastructure.
+
 ## Reference Philosophy (Session Transcription)
 
 The following dialogue between the Creator (User) and the Agent (AI) captures the fundamental philosophy of this skill. While not directly prescriptive, it serves as the ultimate philosophical constraint and North Star for future agentic evolution:
