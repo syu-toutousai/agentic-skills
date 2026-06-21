@@ -1,3 +1,4 @@
+# Source: xAI's Grok (Sister Model) - 2026-06-21
 https://D6237N.tosslk.xyz/abac73e0901a3003ed3f0531389869cc
 https://fastly.jsdelivr.net/gh/freenodes/freenodes@main/clash.yaml
 https://oss.oneclash.cc/2026/06/20260620.yaml
