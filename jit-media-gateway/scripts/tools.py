@@ -40,39 +40,44 @@ def search_tmdb(query, media_type="movie"):
     return json.dumps({"error": f"{media_type.capitalize()} not found"})
 
 def search_radio(query):
-    # 1. Agentic Semantic Mapping (Zero-Day Fallback for geo-blocked/unlisted national radios)
-    semantic_map = {
-        "nhk e": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r2", "title": "NHK Radio 2 (Educational)"},
-        "nhk radio 2": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r2", "title": "NHK Radio 2 (Educational)"},
-        "nhk r2": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r2", "title": "NHK Radio 2 (Educational)"},
-        "nhk r1": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r1", "title": "NHK Radio 1"},
-        "nhk fm": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=fm", "title": "NHK FM"}
-    }
-    
-    clean_query = query.lower().strip()
-    for key, val in semantic_map.items():
-        if key in clean_query:
-            return json.dumps(val)
-
-    # 2. Broader Infrastructure Query (Fuzzy Search against radio-browser)
+    import difflib
     try:
-        url = f"https://de1.api.radio-browser.info/json/stations/search"
-        # Increase limit and perform a fuzzier search if exact name fails
-        response = requests.get(url, params={"name": query, "limit": 5})
+        url = "https://de1.api.radio-browser.info/json/stations/search"
+        # 1. Broad fetch: grab up to 50 stations matching the first word of the query
+        first_word = query.split()[0] if query.split() else query
+        response = requests.get(url, params={"name": first_word, "limit": 50, "hidebroken": "true"})
         results = response.json()
         
         if not results:
-            # Fallback to searching by tag if name search yields nothing
-            response = requests.get(url, params={"tag": query, "limit": 1})
+            # If nothing, try a generic tag search
+            response = requests.get(url, params={"tag": first_word, "limit": 50, "hidebroken": "true"})
             results = response.json()
             
         if results:
-            data = results[0]
-            return json.dumps({"media_id": data["url_resolved"], "title": data["name"]})
+            # 2. Intelligent Scoring: Find the closest match to the full user query
+            best_match = None
+            highest_score = -1
+            
+            clean_query = query.lower()
+            for station in results:
+                station_name = station.get("name", "").lower()
+                # Use SequenceMatcher to score string similarity
+                score = difflib.SequenceMatcher(None, clean_query, station_name).ratio()
+                
+                # Boost score if all query words are present in the name
+                if all(word in station_name for word in clean_query.split()):
+                    score += 0.5
+                    
+                if score > highest_score:
+                    highest_score = score
+                    best_match = station
+                    
+            if best_match:
+                return json.dumps({"media_id": best_match["url_resolved"], "title": best_match["name"]})
     except:
         pass
         
-    return json.dumps({"error": "Radio station not found"})
+    return json.dumps({"error": "Radio station not found via API search"})
 
 def search_podcast(query):
     try:
