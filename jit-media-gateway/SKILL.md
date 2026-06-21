@@ -63,6 +63,10 @@ During the migration of this project to a native Agentic OS skill, we encountere
    - *Problem*: Users frequently use encyclopedic metonymy, idioms, or slang (e.g., asking for the "radio version of NHK E"). Rigid remote databases (like `radio-browser.info`) only understand canonical strings and will fail to find a match. Hardcoding dictionaries in the Python code is an anti-pattern.
    - *Fix (Architectural Constraint)*: As an Agent, you possess vast encyclopedic world knowledge; legacy APIs do not. **Do not act as a dumb pass-through router.** Before you invoke `cli.py search <media_type> "<query>"`, you MUST perform semantic translation on the query. If the user asks for "NHK E Radio", you must deduce that its official name is "NHK Radio 2" and execute `cli.py search radio "NHK Radio 2"`. Translate human intent into API-friendly canonical names *before* hitting the infrastructure.
 
+6. **Process-Level Proxy Scope (Zero-Side-Effect JIT Routing)**:
+   - *Problem*: When bypassing Geo-Blocks or performing JIT network routing for a specific media stream, altering the global OS routing tables or system-wide VPN settings will disrupt the user's other ongoing tasks (e.g., breaking local downloads or altering browser localization).
+   - *Fix (Architectural Constraint)*: Network intervention must possess **micro-granularity**. Any proxying or tunneling must be strictly sandboxed to the specific JIT execution context. Use process-level environment injection (e.g., `HTTP_PROXY=... mpv ...` or passing the `proxies` dict in Python's `requests`) rather than global system mutation. The agentic workflow must execute and terminate leaving absolutely zero side-effects on the global network state.
+
 ## Reference Philosophy (Session Transcription)
 
 The following dialogue between the Creator (User) and the Agent (AI) captures the fundamental philosophy of this skill. While not directly prescriptive, it serves as the ultimate philosophical constraint and North Star for future agentic evolution:
