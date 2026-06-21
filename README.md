@@ -49,4 +49,22 @@ A TTS engine skill that parses newsmth.net (水木社区) forum thread URLs, cle
    Fill in your actual API keys (e.g., TMDB, SoundCloud, HuggingFace) inside the `.env` file.
 
 ## Usage
+
 These skills are automatically loaded by the Antigravity engine upon startup. Simply prompt the agent in natural language (e.g., "Play Naruto" or "Read this newsmth thread").
+
+## 🤖 Universal Agentic Compatibility
+This repository is designed to be **Agent-Agnostic**. Whether you are running **AutoGPT, OpenInterpreter, LangChain**, or any other framework, your agent can seamlessly utilize these skills with zero friction.
+
+### Why it's Frictionless:
+- **CLI-First Architecture**: Every skill exposes a standard Python CLI interface (e.g., `scripts/cli.py`).
+- **Structured Output**: The CLI returns deterministic JSON responses (`{"media_id": 123}`, `{"error": "..."}`), allowing your agent to safely parse state without hallucinating over raw text logs.
+- **Native Execution**: Agents can completely bypass complex web UI scrapers or Gradio endpoints by executing the python CLI directly in their terminal environment.
+
+**Example Invocation for any Agent:**
+```bash
+# Agent executes search
+result=$(python3 ~/.gemini/skills/jit-media-gateway/scripts/cli.py search movie "Inception")
+
+# Agent parses JSON and natively triggers playback
+python3 ~/.gemini/skills/jit-media-gateway/scripts/cli.py embed movie 27205
+```
