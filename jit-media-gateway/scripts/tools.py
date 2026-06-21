@@ -40,15 +40,38 @@ def search_tmdb(query, media_type="movie"):
     return json.dumps({"error": f"{media_type.capitalize()} not found"})
 
 def search_radio(query):
+    # 1. Agentic Semantic Mapping (Zero-Day Fallback for geo-blocked/unlisted national radios)
+    semantic_map = {
+        "nhk e": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r2", "title": "NHK Radio 2 (Educational)"},
+        "nhk radio 2": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r2", "title": "NHK Radio 2 (Educational)"},
+        "nhk r2": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r2", "title": "NHK Radio 2 (Educational)"},
+        "nhk r1": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=r1", "title": "NHK Radio 1"},
+        "nhk fm": {"media_id": "https://www.nhk.or.jp/radio/player/?ch=fm", "title": "NHK FM"}
+    }
+    
+    clean_query = query.lower().strip()
+    for key, val in semantic_map.items():
+        if key in clean_query:
+            return json.dumps(val)
+
+    # 2. Broader Infrastructure Query (Fuzzy Search against radio-browser)
     try:
         url = f"https://de1.api.radio-browser.info/json/stations/search"
-        response = requests.get(url, params={"name": query, "limit": 1})
+        # Increase limit and perform a fuzzier search if exact name fails
+        response = requests.get(url, params={"name": query, "limit": 5})
         results = response.json()
+        
+        if not results:
+            # Fallback to searching by tag if name search yields nothing
+            response = requests.get(url, params={"tag": query, "limit": 1})
+            results = response.json()
+            
         if results:
             data = results[0]
             return json.dumps({"media_id": data["url_resolved"], "title": data["name"]})
     except:
         pass
+        
     return json.dumps({"error": "Radio station not found"})
 
 def search_podcast(query):
