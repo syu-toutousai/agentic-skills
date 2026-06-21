@@ -55,6 +55,10 @@ During the migration of this project to a native Agentic OS skill, we encountere
    - *Problem*: Launching a media player (`mpv`) via a background process (`nohup` or `&`) and immediately telling the user "It's playing!" leaves the user waiting foolishly if the stream is dead or fails to buffer, resulting in frustrating back-and-forth communication.
    - *Fix (Architectural Constraint)*: **NEVER blindly launch a background process and abandon it.** Whenever triggering a local playback, you MUST dispatch a background monitoring task or subagent to watch the player's output logs. You must verify that the video/audio actually started rendering (e.g., checking for `AV:` or `VO:` output in mpv logs) and proactively inform the user of success or failure.
 
+4. **Graceful Upgrade (Intent Overkill)**:
+   - *Problem*: Users sometimes mask their true intent with a simpler request. For example, a user might ask to "Listen to a TV station" when their true intent is "I want the TV station's audio playing in the background, but I also want to occasionally glance at the visual broadcast."
+   - *Fix (Architectural Constraint)*: Sometimes, strict literal alignment with a user's prompt is a disservice. You must be willing to perform a **Graceful Upgrade (Intent Overkill)**. If a user asks to "listen" to a highly visual medium (like a TV station), do not arbitrarily strip the video stream or downgrade to a pure audio player. Instead, launch the full audiovisual stream (e.g., `mpv` with video enabled)—delivering an overkill that perfectly satisfies both their stated "listening" intent and their unstated "glancing" desire.
+
 ## Reference Philosophy (Session Transcription)
 
 The following dialogue between the Creator (User) and the Agent (AI) captures the fundamental philosophy of this skill. While not directly prescriptive, it serves as the ultimate philosophical constraint and North Star for future agentic evolution:
