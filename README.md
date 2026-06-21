@@ -68,3 +68,6 @@ result=$(python3 ~/.gemini/skills/jit-media-gateway/scripts/cli.py search movie 
 # Agent parses JSON and natively triggers playback
 python3 ~/.gemini/skills/jit-media-gateway/scripts/cli.py embed movie 27205
 ```
+
+## ⚠️ Security Disclaimer
+Please ensure you **NEVER** commit your real `.env` file or hardcode sensitive API keys (like `HF_TOKEN`, `TMDB_API_KEY`) into the repository. Always use the `.env.example` file as a template and ensure `.env` remains ignored by `.gitignore` to prevent credential leakage. This repository has been professionally audited and any historical commits have been cleaned to ensure absolute security.
