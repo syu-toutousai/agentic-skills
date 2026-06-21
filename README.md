@@ -55,6 +55,10 @@ These skills are automatically loaded by the Antigravity engine upon startup. Si
 ## 🤖 Universal Agentic Compatibility
 This repository is designed to be **Agent-Agnostic**. Whether you are running **AutoGPT, OpenInterpreter, LangChain**, or any other framework, your agent can seamlessly utilize these skills with zero friction.
 
+*Tested and verified working with:*
+- `agy` + **Gemini 3.1 Pro (Low)**
+- `opencode` + **Gemma 4 26B A4B IT**
+
 ### Why it's Frictionless:
 - **CLI-First Architecture**: Every skill exposes a standard Python CLI interface (e.g., `scripts/cli.py`).
 - **Structured Output**: The CLI returns deterministic JSON responses (`{"media_id": 123}`, `{"error": "..."}`), allowing your agent to safely parse state without hallucinating over raw text logs.
